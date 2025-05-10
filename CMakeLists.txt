@@ -3,5 +3,7 @@ project(advanced_label)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_library(${PROJECT_NAME} INTERFACE src/AdvancedLabel.cpp)
+add_library(${PROJECT_NAME} INTERFACE)
+
+target_sources(${PROJECT_NAME} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/src/AdvancedLabel.cpp)
 target_include_directories(${PROJECT_NAME} INTERFACE include)
