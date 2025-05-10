@@ -5,6 +5,14 @@
 #include <iostream>
 #include <sstream>
 
+#include <Geode/modify/GameManager.hpp>
+struct ClearCacheGMHook : geode::Modify<ClearCacheGMHook, GameManager> {
+    void reloadAllStep5() {
+        GameManager::reloadAllStep5();
+        BMFontConfiguration::purgeCachedData();
+    }
+};
+
 std::unordered_map<std::string, BMFontConfiguration>& getFontConfigs() {
     static std::unordered_map<std::string, BMFontConfiguration> s_fontConfigs;
     return s_fontConfigs;
