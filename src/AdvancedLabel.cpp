@@ -405,14 +405,18 @@ void Label::setString(std::string_view text) {
         return;
     }
 
-    auto utf8TextRes = geode::utils::string::utf8ToUtf32(text);
-    if (utf8TextRes.isErr()) {
-        return;
-    }
+    if (text.empty()) {
+        m_unicodeText.clear();
+        m_text.clear();
+    } else {
+        auto utf8TextRes = geode::utils::string::utf8ToUtf32(text);
+        if (utf8TextRes.isErr()) {
+            return;
+        }
 
-    m_unicodeText = std::move(utf8TextRes.unwrap());
-    m_text = text;
-    // m_useChunks = false; // reset chunks
+        m_unicodeText = std::move(utf8TextRes).unwrap();
+        m_text = text;
+    }
 
     updateChars();
 }
